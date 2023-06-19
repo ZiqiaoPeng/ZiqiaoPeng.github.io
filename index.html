@@ -52,7 +52,54 @@
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 				
-      
+
+<tr onmouseout="selftalk_stop()" onmouseover="selftalk_start()" >
+  <td style="padding:20px;width:25%;vertical-align:middle">
+    <div class="two" id="selftalk_image" style="display: inline;"> 
+      <video  width="320" height="180" muted autoplay loop>
+      <source src="images/selftalk/selftalk.mp4" alt="selftalk mp4" width="320" height="180" type="video/mp4">
+      </video>
+    </div>
+      <img src='images/selftalk/selftalk.png' alt="selftalk" width="320" height="180">
+    </div>
+    <script type="text/javascript">
+      function selftalk_start() {
+        document.getElementById('selftalk_image').style.opacity = "1";
+      }
+
+      function selftalk_stop() {
+        document.getElementById('selftalk_image').style.opacity = "0";
+      }
+      selftalk_stop()
+    </script>
+  </td>
+  <td style="padding:20px;width:75%;vertical-align:middle">
+    <a href="./selftalk">
+      <papertitle>SelfTalk: A Self-Supervised Commutative Training Diagram to Comprehend 3D Talking Faces</papertitle>
+    </a>
+    <br>
+    <strong>Ziqiao Peng</strong>,
+    <strong>Yihao Luo</strong>,
+    <strong>Yue Shi</strong>,
+    <strong>Hao Xu</strong>,
+    <strong>Xiangyu Zhu</strong>,
+    <strong>Hongyan Liu</strong>,
+    <strong>Jun He</strong>,
+    <strong>Zhaoxin Fan</strong>,
+    <br>
+    
+    <a href="./selftalk">Project</a>
+    /
+    <a href="https://arxiv.org/">arXiv</a>
+    /
+    <a href="https://github.com/">Code</a>
+    <p></p>
+    <p>
+      We propose a novel framework called SelfTalk utilizes a cross-modal network system to generate coherent and visually comprehensible 3D talking faces by reducing the domain gap between different modalities.
+    </p>
+  </td>
+</tr>
+
 <tr onmouseout="emotalk_stop()" onmouseover="emotalk_start()" >
   <td style="padding:20px;width:25%;vertical-align:middle">
     <div class="two" id="emotalk_image" style="display: inline;"> 
@@ -109,7 +156,7 @@
             <td style="padding:0px">
               <br>
               <p style="text-align:right;font-size:small;">
-                Last updated: Mar. 2023
+                Last updated: June 2023
                 <br>
                 Web page design credit to <a href="https://jonbarron.info" style="font-size: 14px">Jon Barron</a>
               </p>
