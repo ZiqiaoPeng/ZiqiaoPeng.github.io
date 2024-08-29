@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SyncTalk++: High-Fidelity and Efficient Synchronized Talking Heads Synthesis Using Gaussian Splatting">
+  <meta name="keywords" content="Talking head, Audio-driven, Gaussian Splatting, SyncTalk++">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SyncTalk++</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> SyncTalk++: High-Fidelity and Efficient Synchronized Talking Heads Synthesis Using Gaussian Splatting</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ziqiaopeng.github.io/">Ziqiao Peng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <strong>Wentao Hu</strong><sup>2</sup>,</span>
+            <span class="author-block">
+              <strong>Junyuan Ma</strong><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://xiangyuzhu-open.github.io/homepage/">Xiangyu Zhu</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <strong>Xiaomei Zhang</strong><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/fromandto">Hao Zhao</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sice.bupt.edu.cn/info/1098/2008.htm">Hui Tian</a><sup>2</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="http://info.ruc.edu.cn/jsky/szdw/adszycx/bssds/jsjyyjs1/22e455e725db45a3a310bbc0f045c0f1.htm">Jun He</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.sem.tsinghua.edu.cn/info/1189/32080.htm">Hongyan Liu</a><sup>4*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zhaoxinf.github.io/">Zhaoxin Fan</a><sup>5*</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Renmin University of China,</span>
+            <span class="author-block"><sup>2</sup>Beijing University of Posts and Telecommunications,</span>
+            <span class="author-block"><sup>3</sup>Chinese Academy of Sciences,</span>
+            <span class="author-block"><sup>4</sup>Tsinghua University</span>
+            <span class="author-block"><sup>5</sup>Beihang University</span>
+
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper(Coming Soon)</span>
+                </a>
+              </span>
+
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="#teaser"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/ziqiaopeng/SyncTalk"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay loop controls playsinline height="100%">
+        <source src="./static/videos/SyncTalk++(github).mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <strong>SyncTalk++</strong> synthesizes synchronized talking head videos, employing Gaussian Splatting to maintain subject identity.
+         It can generate synchronized lip movements, facial expressions, and stable head poses, and restores hair details to create high-resolution videos.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Achieving high synchronization in the synthesis of realistic,
+            speech-driven talking head videos presents a significant challenge.
+            A lifelike talking head requires synchronized coordination of subject identity,
+            lip movements, facial expressions, and head poses. The absence of these
+            synchronizations is a fundamental flaw, leading to unrealistic results.
+            <br>
+            <br>
+            To address the critical issue of synchronization, identified as 
+            the “devil” in creating realistic talking heads, we introduce SyncTalk++,
+            which features a Dynamic Portrait Renderer with Gaussian Splatting to ensure
+            consistent subject identity preservation and a FaceSync Controller that aligns
+            lip movements with speech while innovatively using a 3D facial blendshape model
+            to reconstruct accurate facial expressions. To ensure natural head movements,
+            we propose a Head-Sync Stabilizer, which optimizes head poses for greater stability.
+            Additionally, SyncTalk++ enhances robustness to out-of-distribution (OOD) audio by
+            incorporating an Expression Generator and a Torso Restorer, which generate speech-matched
+            facial expressions and seamless torso regions. Our approach maintains consistency
+            and continuity in visual details across frames and significantly improves rendering
+            speed and quality, achieving up to 101 frames per second. Extensive experiments and
+            user studies demonstrate that SyncTalk++ outperforms state-of-the-art methods in 
+            synchronization and realism.
+          </p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    
+    <!-- Proposed Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Proposed Method</h2>
+        <div class="content has-text-justified">
+          <img src="./static/videos/SyncTalk++-pipeline.png" alt="synctalk++">
+          <p>
+            <br>
+            Overview of SyncTalk++. Given a cropped reference video of a talking head and the corresponding speech,
+             SyncTalk++ can extract the Lip Feature <img style="transform: translateY(0.1em); background: white;" src="./svg/fl.svg">, 
+             Expression Feature <img style="transform: translateY(0.1em); background: white;" src="./svg/fe.svg">, 
+             and Head Pose <img style="transform: translateY(0.1em); background: white;" src="./svg/rt.svg"> through
+              two synchronization modules <img style="transform: translateY(0.1em); background: white;" src="./svg/a.svg"> 
+              and <img style="transform: translateY(0.1em); background: white;" src="./svg/b.svg">. Then, Gaussian Splatting 
+              is used to model and deform the head, producing a talking head video. The OOD Audio 
+              Expression Generator and Torso Restorer can generate speech-matched facial expressions
+               and repair artifacts at head-torso junctions.
+          </p>
+          <!-- <p>
+            
+          </p>
+          <p>
+            
+          </p> -->
+        </div>
+      </div>
+    </div>
+    <!--/ Proposed Method. -->  
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+  @article{peng2024synctalk++,
+    title={SyncTalk++: High-Fidelity and Efficient Synchronized Talking Heads Synthesis Using Gaussian Splatting}, 
+    author={Ziqiao Peng and Wentao Hu and Junyuan Ma and Xiangyu Zhu and Xiaomei Zhang and Hao Zhao and Hui Tian and Jun He and Hongyan Liu and Zhaoxin Fan},
+    year={2024}
+  }
+</code></pre>
+  </div>
+</section>
+ 
+
+
+
+<footer class="footer">
+  <div class="container">
+      <div class="content has-text-centered">
+          <a class="icon-link" href="https://arxiv.org/">
+              <i class="fas fa-file-pdf"></i>
+          </a>
+          <a class="icon-link" href="https://github.com/ZiqiaoPeng/SyncTalk" class="external-link" disabled>
+              <i class="fab fa-github"></i>
+          </a>
+      </div>
+      <div class="columns is-centered">
+          <div class="column is-8">
+              <div class="content">
+                  <p style="text-align:center">
+                    This website is licensed under a <a rel="license"
+                    href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+                  </p>
+                  <p style="text-align:center">
+                    Website source code based on the <a
+                    href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+                  </p>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+
+</body>
+</html>
