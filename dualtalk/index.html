@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="Talking head, Audio-driven, Interaction, DualTalk">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DualTalk</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">CVPR 2025</h1>
+          <h1 class="title is-1 publication-title"> DualTalk: Dual-Speaker Interaction for 3D Talking Head Conversations</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ziqiaopeng.github.io/">Ziqiao Peng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/yanbofan0124/">Yanbo Fan</a><sup>2*†</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cintellifusion.github.io/">Haoyu Wu</a><sup>1</sup>,</span>
+            </span>
+            <span class="author-block">
+              <a href="https://xuanwangvc.github.io/">Xuan Wang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.sem.tsinghua.edu.cn/info/1189/32080.htm">Hongyan Liu</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://info.ruc.edu.cn/jsky/rtjs/d696a551fefc4b0ab6f90e02b01f3529.htm">Jun He</a><sup>1*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zhaoxinf.github.io/">Zhaoxin Fan</a><sup>4*</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Renmin University of China,</span>
+            <span class="author-block"><sup>2</sup>Ant Group,</span>
+            <span class="author-block"><sup>3</sup>Tsinghua University,</span>
+            <span class="author-block"><sup>4</sup>Beijing Advanced Innovation Center for Future Blockchain and Privacy Computing</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>†</sup>Project Leader,</span>
+            <span class="author-block"><sup>*</sup>Corresponding author</span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay loop controls playsinline height="100%">
+        <source src="./static/videos/dualtalk.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <strong>DualTalk</strong> is a 3D talking head interaction model capable of supporting multi-round dual-speaker conversations, 
+        seamlessly switching between speaking and listening roles, and providing adaptive non-verbal feedback to enhance the naturalness and realism of virtual dialogue.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In face-to-face conversations, individuals need to switch between speaking and listening roles seamlessly.
+            Existing 3D talking head generation models focus solely on speaking or listening, neglecting the natural
+            dynamics of interactive conversation, which leads to unnatural interactions and awkward transitions.
+            <br>
+            To address this issue, we propose a new task—multi-round dual-speaker interaction for 
+            3D talking head generation—which requires models to handle and generate both speaking
+            and listening behaviors in continuous conversation. 
+            <br>
+            To solve this task, we introduce DualTalk,
+            a novel unified framework that integrates the dynamic behaviors of speakers and listeners
+            to simulate realistic and coherent dialogue interactions. This framework not only 
+            synthesizes lifelike talking heads when speaking but also generates continuous and 
+            vivid non-verbal feedback when listening, effectively capturing the interplay between
+            the roles. We also create a new dataset featuring 50 hours of multi-round conversations
+            with over 1,000 characters, where participants continuously switch between speaking 
+            and listening roles. 
+            <br>
+            Extensive experiments demonstrate that our method significantly 
+            enhances the naturalness and expressiveness of 3D talking heads in dual-speaker conversations.
+            We recommend watching the supplementary video.
+          </p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    
+    <!-- Proposed Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Proposed Method</h2>
+        <div class="content has-text-justified">
+          <img src="./static/videos/dualtalk.png" alt="dualtalk">
+          <br>
+          <p>
+            <br>
+            Comparison of single-role models (Speaker-Only and Listener-Only) with DualTalk.
+            Unlike single-role models, which lack key interaction elements, DualTalk supports
+            speaking and listening role transition, multi-round conversations, and natural interaction.
+          </p>
+          <br>
+
+          <img src="./static/videos/pipeline.png" alt="dualtalk">
+
+          <p>
+            <br>
+            Overview of DualTalk. DualTalk consists of four components: (a) Dual-Speaker Joint Encoder,
+            (b) Cross-Modal Temporal Enhancer, (c) Dual-Speaker Interaction Module, 
+            and (d) Expressive Synthesis Module, enabling the generation of smooth and natural dual-speaker interactions.
+          </p>
+          <!-- <p>
+            
+          </p>
+          <p>
+            
+          </p> -->
+        </div>
+      </div>
+    </div>
+    <!--/ Proposed Method. -->  
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+  @inproceedings{peng2025dualtalk,
+    title={DualTalk: Dual-Speaker Interaction for 3D Talking Head Conversations},
+    author={Ziqiao Peng and Yanbo Fan and Haoyu Wu and Xuan Wang and Hongyan Liu and Jun He and Zhaoxin Fan},
+    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    year={2025},
+}
+</code></pre>
+  </div>
+</section>
+ 
+
+
+
+<footer class="footer">
+  <div class="container">
+      <div class="columns is-centered">
+          <div class="column is-8">
+              <div class="content">
+                  <p style="text-align:center">
+                    This website is licensed under a <a rel="license"
+                    href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+                  </p>
+                  <p style="text-align:center">
+                    Website source code based on the <a
+                    href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+                  </p>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+
+</body>
+</html>
