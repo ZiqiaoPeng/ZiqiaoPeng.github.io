@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OmniSync: Universal lip synchronization framework using diffusion transformers for diverse visual scenarios including AI-generated content.">
+    <meta name="keywords" content="lip sync, diffusion transformers, AI video, lip synchronization, computer vision">
+    <meta name="author" content="Ziqiao Peng, Jiwen Liu, Haoxian Zhang">
+    <meta property="og:title" content="OmniSync: Towards Universal Lip Synchronization via Diffusion Transformers">
+    <meta property="og:description" content="Universal lip synchronization framework for diverse visual scenarios using diffusion transformers">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="image/omnisync-pipeline.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OmniSync: Universal Lip Synchronization">
+    <meta name="twitter:description" content="Universal lip synchronization framework using diffusion transformers">
+    <title>OmniSync: Towards Universal Lip Synchronization via Diffusion Transformers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 60px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .authors {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .affiliations {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .section {
+            padding: 60px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .section-subtitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Video Sections */
+        .main-video {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-video video {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .demo-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .demo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-video {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .demo-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .demo-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .deployment-notice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin: 30px auto;
+            max-width: 600px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deployment-notice::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .notice-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .notice-content {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .notice-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .notice-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0;
+            opacity: 0.95;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .link-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .try-btn-cn {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .try-btn-cn:hover {
+            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+
+        .try-btn-global {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            box-shadow: 0 4px 15px rgba(56, 161, 105, 0.3);
+        }
+
+        .try-btn-global:hover {
+            box-shadow: 0 6px 20px rgba(56, 161, 105, 0.4);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .deployment-notice {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .notice-icon {
+                font-size: 2rem;
+            }
+            
+            .notice-title {
+                font-size: 1.2rem;
+            }
+            
+            .notice-description {
+                font-size: 0.9rem;
+            }
+            
+            .links {
+                gap: 10px;
+            }
+            
+            .link-btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .link-btn {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .demo-category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .category-description {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .demo-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .demo-track {
+            display: flex;
+            transition: transform 0.3s ease;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .demo-item {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .demo-video {
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: object-fit 0.3s ease;
+        }
+        .demo-video:fullscreen {
+            object-fit: contain;
+            border-radius: 0;
+        }
+        .demo-video:-webkit-full-screen {
+            object-fit: contain;
+            border-radius: 0;
+        }
+        .demo-video:-moz-full-screen {
+            object-fit: contain;
+            border-radius: 0;
+        }
+        .demo-video:-ms-fullscreen {
+            object-fit: contain;
+            border-radius: 0;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .slider-btn:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        /* Abstract */
+        .abstract-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* Method Overview */
+        .method-image {
+            width: 100%;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Results */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.9rem;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .results-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .results-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .best-score {
+            background: #d4edda !important;
+            font-weight: 600;
+            color: #155724;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1 class="title">OmniSync</h1>
+            <p class="subtitle">Towards Universal Lip Synchronization via Diffusion Transformers</p>
+            
+            <div class="authors">
+                <strong>Ziqiao Peng</strong><sup>1*</sup>, 
+                <strong>Jiwen Liu</strong><sup>2†</sup>, 
+                <strong>Haoxian Zhang</strong><sup>2</sup>, 
+                <strong>Xiaoqiang Liu</strong><sup>2</sup>, 
+                <strong>Songlin Tang</strong><sup>2</sup>, <br>
+                <strong>Pengfei Wan</strong><sup>2</sup>, 
+                <strong>Di Zhang</strong><sup>2</sup>, 
+                <strong>Hongyan Liu</strong><sup>3</sup>, 
+                <strong>Jun He</strong><sup>1✉</sup>
+            </div>
+            
+            <div class="affiliations">
+                <sup>1</sup>Renmin University of China &nbsp;&nbsp;
+                <sup>2</sup>Kuaishou Technology &nbsp;&nbsp;
+                <sup>3</sup>Tsinghua University<br>
+                <sup>†</sup>Project Leader &nbsp;&nbsp; <sup>✉</sup>Corresponding Author  <br>
+                <sup>*</sup>Work done during an internship at KwaiVGI, Kuaishou Technology<br>
+            </div>
+            
+            
+            <div class="links">
+                <a href="https://arxiv.org/" class="link-btn">
+                    <i class="fas fa-file-pdf"></i> Paper
+                </a>
+                <!-- <a href="#" class="link-btn">
+                    <i class="fab fa-github"></i> Code
+                </a> -->
+                <a href="#" class="link-btn">
+                    <i class="fas fa-database"></i> Benchmark (Coming Soon)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            
+            <!-- Main Video Demo -->
+            <div class="section">
+                <h2 class="section-title">Main Demo</h2>
+                <div class="main-video">
+                    <video controls>
+                        <source src="video/OmniSync_arxiv.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p style="margin-top: 20px; color: #666; font-style: italic;">
+                        Comprehensive demonstration of OmniSync's universal lip synchronization capabilities across diverse visual scenarios.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Demo Videos -->
+            <div class="section">
+                <h2 class="section-title">Demo Gallery</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 40px;">
+                    Explore various scenarios showcasing OmniSync's versatility and performance
+                </p>
+                
+                <!-- High Identity Consistency -->
+                <div class="demo-category">
+                    <h3 class="category-title">High Identity Consistency</h3>
+                    <p class="category-description">Demonstrating superior identity preservation across different poses and expressions</p>
+                    <div class="demo-slider">
+                        <div class="demo-track" id="identity-track">
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity1.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity2.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity3.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity4.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity5.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity6.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity7.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity8.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity9.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity10.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity11.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity12.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity13.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/identity/identity14.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <button class="slider-btn prev-btn" onclick="slideLeft('identity-track')">‹</button>
+                        <button class="slider-btn next-btn" onclick="slideRight('identity-track')">›</button>
+                    </div>
+                </div>
+
+                <!-- Occlusion Robustness -->
+                <div class="demo-category">
+                    <h3 class="category-title">Occlusion Robustness</h3>
+                    <p class="category-description">Maintaining accurate lip sync even with partial facial occlusions</p>
+                    <div class="demo-slider">
+                        <div class="demo-track" id="occlusion-track">
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/occlusion/occlusion1.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/occlusion/occlusion2.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/occlusion/occlusion3.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/occlusion/occlusion4.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/occlusion/occlusion5.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/occlusion/occlusion6.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <button class="slider-btn prev-btn" onclick="slideLeft('occlusion-track')">‹</button>
+                        <button class="slider-btn next-btn" onclick="slideRight('occlusion-track')">›</button>
+                    </div>
+                </div>
+
+                <!-- Stylistic Diversity -->
+                <div class="demo-category">
+                    <h3 class="category-title">Stylistic Diversity</h3>
+                    <p class="category-description">Working seamlessly with stylized characters and artistic representations</p>
+                    <div class="demo-slider">
+                        <div class="demo-track" id="stylistic-track">
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic1.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic2.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic3.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic4.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic5.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic6.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic7.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="demo-item">
+                                <video class="demo-video" controls preload="metadata" loading="lazy">
+                                    <source src="video/stylistic/stylistic8.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <button class="slider-btn prev-btn" onclick="slideLeft('stylistic-track')">‹</button>
+                        <button class="slider-btn next-btn" onclick="slideRight('stylistic-track')">›</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="section">
+                <h2 class="section-title">Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <h3 class="feature-title">Mask-Free Training</h3>
+                        <p class="feature-description">
+                            Eliminates reliance on reference frames and explicit masks through direct video editing paradigm, enabling robust performance across diverse visual representations.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3 class="feature-title">Identity Preservation</h3>
+                        <p class="feature-description">
+                            Flow-matching-based progressive noise initialization ensures consistent head pose and identity preservation while allowing precise mouth region modifications.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <h3 class="feature-title">Enhanced Audio Conditioning</h3>
+                        <p class="feature-description">
+                            Dynamic Spatiotemporal Classifier-Free Guidance provides fine-grained control over audio influence, addressing weak signal problems in audio-driven generation.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="feature-title">Universal Compatibility</h3>
+                        <p class="feature-description">
+                            Works seamlessly with stylized characters, non-human entities, and AI-generated content, breaking limitations of traditional face detection methods.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <h3 class="feature-title">Unlimited Duration</h3>
+                        <p class="feature-description">
+                            Supports unlimited-duration inference while maintaining natural facial dynamics and temporal consistency throughout long sequences.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="feature-title">Occlusion Robust</h3>
+                        <p class="feature-description">
+                            Demonstrates strong robustness to facial occlusions and challenging visual conditions while maintaining high-quality lip synchronization.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Abstract -->
+            <div class="section">
+                <h2 class="section-title">Abstract</h2>
+                <p class="abstract-text">
+                    Lip synchronization is the task of aligning a speaker's lip movements in video with corresponding speech audio, and it is essential for creating realistic, expressive video content. However, existing methods often rely on reference frames and masked-frame inpainting, which limit their robustness to identity consistency, pose variations, facial occlusions, and stylized content. In addition, since audio signals provide weaker conditioning than visual cues, lip shape leakage from the original video will affect lip sync quality.
+                </p>
+                <br>
+                <p class="abstract-text">
+                    In this paper, we present <strong>OmniSync</strong>, a universal lip synchronization framework for diverse visual scenarios. Our approach introduces a mask-free training paradigm using Diffusion Transformer models for direct frame editing without explicit masks, enabling unlimited-duration inference while maintaining natural facial dynamics and preserving character identity. During inference, we propose a flow-matching-based progressive noise initialization to ensure pose and identity consistency, while allowing precise mouth-region editing. To address the weak conditioning signal of audio, we develop a Dynamic Spatiotemporal Classifier-Free Guidance (DS-CFG) mechanism that adaptively adjusts guidance strength over time and space. We also establish the AIGC-LipSync Benchmark,
+                    the first evaluation suite for lip synchronization in diverse AI-generated videos. Extensive experiments demonstrate that OmniSync significantly outperforms prior
+                    methods in both visual quality and lip sync accuracy, achieving superior results in
+                    both real-world and AI-generated videos.
+                </p>
+            </div>
+
+            <!-- Method Overview -->
+            <div class="section">
+                <h2 class="section-title">Method Overview</h2>
+                <img src="image/omnisync-pipeline.png" alt="OmniSync Method Overview" class="method-image">
+                <p style="text-align: center; color: #666; margin-top: 20px; font-style: italic;">
+                    Overview of OmniSync framework showing mask-free training paradigm, progressive noise initialization, and dynamic spatiotemporal CFG.
+                </p>
+                
+                <div style="margin-top: 40px;">
+                    <h3 class="section-subtitle">🎯 Core Innovations</h3>
+                    <ul style="color: #555; line-height: 2; margin-left: 20px;">
+                        <li><strong>Mask-Free Training Paradigm:</strong> Direct cross-frame editing using Diffusion Transformers without explicit masks or reference frames</li>
+                        <li><strong>Progressive Noise Initialization:</strong> Flow-matching-based strategy that maintains spatial consistency while enabling precise mouth modifications</li>
+                        <li><strong>Dynamic Spatiotemporal CFG:</strong> Adaptive guidance that balances audio conditioning strength across time and space dimensions</li>
+                        <li><strong>Timestep-Dependent Sampling:</strong> Strategic data sampling that aligns with different phases of the diffusion process</li>
+                    </ul>
+                </div>
+            </div>
+
+            
+            <!-- AIGC Benchmark -->
+            <div class="section">
+                <h2 class="section-title">AIGC-LipSync Benchmark</h2>
+                <p style="color: #666; text-align: center; margin-bottom: 30px;">
+                    The first comprehensive evaluation framework for lip synchronization in AI-generated content
+                </p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="feature-title">615 Diverse Videos</h3>
+                        <p class="feature-description">
+                            Comprehensive collection from state-of-the-art T2V models including Kling, Dreamina, Wan, and Hunyuan
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <h3 class="feature-title">Stylized Characters</h3>
+                        <p class="feature-description">
+                            Includes challenging scenarios with artistic styles, non-human entities, and creative representations
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="feature-title">Challenging Conditions</h3>
+                        <p class="feature-description">
+                            Variable lighting, occlusions, and extreme poses that traditional benchmarks miss
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Comprehensive Metrics</h3>
+                        <p class="feature-description">
+                            Multi-dimensional evaluation including visual quality, identity preservation, and generation success rates
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Citation -->
+            <div class="section">
+                <h2 class="section-title">Citation</h2>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; font-family: 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;">
+                    <pre>@article{peng2025omnisync,
+                    title={OmniSync: Towards Universal Lip Synchronization via Diffusion Transformers},
+                    author={Peng, Ziqiao and Liu, Jiwen and Zhang, Haoxian and Liu, Xiaoqiang and 
+                            Tang, Songlin and Wan, Pengfei and Zhang, Di and Liu, Hongyan and He, Jun},
+                    journal={arXiv preprint arXiv:2025.xxxxx},
+                    year={2025}
+                    }</pre>
+                </div>
+            </div>
+
+            <!-- Acknowledgments -->
+            <div class="section" style="text-align: center; border-bottom: none;">
+                <h2 class="section-title">Acknowledgments</h2>
+                <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                    We would like to express our sincere gratitude to the vibrant community at 
+                    <a href="https://civitai.com" style="color: #667eea; text-decoration: none; font-weight: 500;">Civitai</a> 
+                    for their generous sharing of creative content. Most of our demonstration videos were collected from this platform, 
+                    showcasing the diverse and artistic AI-generated content that our community creates and shares.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.7);">
+        <p>&copy; 2025 OmniSync. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        let currentPosition = {
+            'identity-track': 0,
+            'occlusion-track': 0,
+            'stylistic-track': 0
+        };
+
+        function slideLeft(trackId) {
+            const track = document.getElementById(trackId);
+            const itemWidth = 320; // 300px + 20px gap
+            
+            currentPosition[trackId] = Math.min(currentPosition[trackId] + itemWidth, 0);
+            track.style.transform = `translateX(${currentPosition[trackId]}px)`;
+        }
+
+        function slideRight(trackId) {
+            const track = document.getElementById(trackId);
+            const itemWidth = 320; // 300px + 20px gap
+            const maxScroll = -(track.children.length - 3) * itemWidth; // 显示3个视频
+            
+            currentPosition[trackId] = Math.max(currentPosition[trackId] - itemWidth, maxScroll);
+            track.style.transform = `translateX(${currentPosition[trackId]}px)`;
+        }
+
+        // 支持触摸滑动（移动端）
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.demo-track').forEach(track => {
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+                
+                track.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                });
+                
+                track.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    currentX = e.touches[0].clientX - startX;
+                    track.style.transform = `translateX(${currentPosition[track.id] + currentX}px)`;
+                });
+                
+                track.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    
+                    if (Math.abs(currentX) > 50) {
+                        if (currentX > 0) {
+                            slideLeft(track.id);
+                        } else {
+                            slideRight(track.id);
+                        }
+                    } else {
+                        track.style.transform = `translateX(${currentPosition[track.id]}px)`;
+                    }
+                    currentX = 0;
+                });
+            });
+        });
+
+        // 鼠标拖拽支持（桌面端）
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.demo-track').forEach(track => {
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+                
+                track.addEventListener('mousedown', (e) => {
+                    startX = e.clientX;
+                    isDragging = true;
+                    track.style.cursor = 'grabbing';
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.clientX - startX;
+                    track.style.transform = `translateX(${currentPosition[track.id] + currentX}px)`;
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    track.style.cursor = 'grab';
+                    
+                    if (Math.abs(currentX) > 50) {
+                        if (currentX > 0) {
+                            slideLeft(track.id);
+                        } else {
+                            slideRight(track.id);
+                        }
+                    } else {
+                        track.style.transform = `translateX(${currentPosition[track.id]}px)`;
+                    }
+                    currentX = 0;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
