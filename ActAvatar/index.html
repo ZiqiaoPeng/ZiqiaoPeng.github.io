@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ActAvatar</title>
+    <meta name="description" content="ActAvatar: Temporally-Aware Precise Action Control for Talking Avatars">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <style>
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background-color: #666; }
+
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-stretch: 100%;
+            font-display: block;
+            font-weight: 300 700;
+            src: url(../example/v1_5/roboto.woff2) format("woff2");
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: "Roboto", sans-serif;
+            padding: 0;
+            margin: 0;
+            font-size: 17px;
+        }
+        a{color:#999 !important;text-decoration:none !important}
+        a:hover{color:#999 !important}
+        pre, code{color:#999 !important}
+
+        video { background-color: #000; width: 100%; }
+        img { background-color: #111; }
+
+        #intro {
+            padding: 140px 0 80px;
+        }
+        #intro h1 {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #66ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        #intro h2 {
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 400;
+            color: #cccccc;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+        #intro strong { font-weight: 700; }
+        #intro h2 strong { color: #fff; }
+
+        section {
+            max-width: 1920px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+        section:first-of-type { margin-top: 0; }
+        .content { padding: 0 10%; }
+        .content p { color: #999 !important; }
+
+        .title {
+            background-color: #000;
+            position: sticky;
+            top: 0;
+            padding: 20px 10%;
+            font-size: 22px;
+            font-weight: 600;
+            z-index: 1000;
+            min-height: 60px;
+            box-sizing: border-box;
+        }
+        .description {
+            padding: 0 10% 20px;
+            color: #999;
+            line-height: 25px;
+            font-weight: 300;
+            font-size: 15px;
+        }
+        .description .highlight {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .ours-container {
+            padding: 0 10%;
+        }
+        /* Masonry-style layout for ours section, adapts to actual video aspect ratios */
+        #ours-grid, #ours-grid-extended {
+            column-count: 3;
+            column-gap: 5px;
+        }
+        #ours-grid .prompt-wrap, #ours-grid-extended .prompt-wrap {
+            break-inside: avoid;
+            margin-bottom: 5px;
+        }
+        #ours-grid .prompt,
+        #ours-grid-extended .prompt {
+            display: none;
+        }
+        @media (max-width: 1200px) {
+            #ours-grid, #ours-grid-extended { column-count: 2; }
+        }
+        @media (max-width: 700px) {
+            #ours-grid, #ours-grid-extended { column-count: 1; }
+        }
+        .pipeline-wrap {
+            padding: 0 10% 20px;
+        }
+        .pipeline-wrap img {
+            width: 80%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: none;
+        }
+
+        .flex-row {
+            display: flex;
+            column-gap: 5px;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            padding: 0 5px 5px;
+        }
+        .flex-row > div {
+            flex-grow: 1;
+            flex-basis: 0;
+            position: relative;
+        }
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 5px;
+        }
+        .flex > div {
+            margin-top: 2.5px;
+            margin-bottom: 2.5px;
+            position: relative;
+        }
+        .comparison-grid .prompt-wrap {
+            overflow: visible;
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        .comparison-grid .prompt-wrap:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        .comparison-grid .prompt-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .prompt-wrap {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #000;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .prompt-wrap video {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+        }
+        .flex-2 {
+            justify-content: center;
+            column-gap: 5px;
+        }
+        .flex-2 > div {
+            width: calc(100% / 2 - 5px / 2);
+            min-width: calc(100% / 3 - 5px * 2 / 3);
+            max-width: calc(100vh - 200px);
+        }
+        .prompt {
+            max-width: calc(100% - 20px);
+            position: absolute;
+            background: rgba(0, 0, 0, 0.75);
+            color: #ffffffe6;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            bottom: 10px;
+            left: 10px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .5s;
+            box-sizing: border-box;
+        }
+
+        /* Gallery videos: default browser controls */
+        #ours-grid video,
+        #ours-grid-extended video {
+            cursor: pointer;
+        }
+
+        .prompt-wrap:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 32px rgba(0, 0, 0, 0.9);
+            z-index: 1;
+        }
+        .prompt-wrap:hover .prompt {
+            opacity: 1;
+        }
+
+        .method-label {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #cccccc;
+            font-weight: 500;
+            text-align: center;
+        }
+
+
+        .full-width {
+            padding: 0 10%;
+        }
+
+        @media (max-width: 900px) {
+            #intro { padding: 80px 0 40px; }
+            #intro h1 { font-size: 40px; }
+            .flex-row { flex-wrap: wrap; }
+            .flex-row > div { flex-basis: 100%; margin-bottom: 5px; }
+            .flex > div { width: 100%; }
+        }
+    
+    /* Authors block */
+    .authors-block { margin: 24px 0 12px; text-align: center; }
+    .author-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; margin: 0; padding: 0; list-style: none; color: #e6e6e6; font-size: clamp(18px, 2.2vw, 20px); line-height: 1.5; }
+    /* Remove commas between names; use larger visual spacing instead */
+    .author-list li + li::before { content: none; }
+    /* Override global `a{color:... !important}` to keep author link color aligned */
+    .author-list a { color: inherit !important; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+    .author-list a:hover { border-bottom-color: currentColor; }
+    /* No underline for the first author link (Ziqiao Peng) */
+    .author-list li:first-child a { border-bottom: none !important; }
+    .author-list li:first-child a:hover { border-bottom: none !important; }
+    .author-list sup { margin-left: 2px; font-size: 0.7em; vertical-align: super; line-height: 0; opacity: 0.9; }
+    .affiliations { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.4rem; margin: 8px 0 0; padding: 0; list-style: none; color: #bdbdbd; font-size: clamp(14px, 1.8vw, 16px); }
+    .affiliations sup { margin-right: 2px; font-size: 0.8em; vertical-align: super; line-height: 0; opacity: 0.9; }
+    .author-notes { margin: 6px 0 0; color: #a6a6a6; font-size: clamp(13px, 1.6vw, 15px); }
+    .author-notes span + span::before { content: "  ·  "; color: #8c8c8c; }
+    /* Flex line break element inside author list */
+    .author-break { flex-basis: 100%; width: 0; height: 0; padding: 0; margin: 0; }
+</style>
+</head>
+<body>
+    <section id="intro">
+        <div class="content" style="text-align: center;">
+            <h1>ActAvatar</h1>
+            <h2>
+                Temporally-Aware Precise Action Control<br>
+                for Talking Avatars
+            </h2>
+
+            <div class="authors-block">
+  <ul class="author-list">
+    <li><a href="https://ziqiaopeng.github.io/" target="_blank" rel="noopener noreferrer"><strong>Ziqiao Peng</strong></a><sup>1*</sup></li>
+    <li><strong>Yi Chen</strong><sup>2</sup></li>
+    <li><strong>Yifeng Ma</strong><sup>2</sup></li>
+    <li><strong>Guozhen Zhang</strong><sup>2</sup></li>
+    <li><strong>Zhiyao Sun</strong><sup>2</sup></li>
+    <li><strong>Zixiang Zhou</strong><sup>2</sup></li>
+    <li><strong>Youliang Zhang</strong><sup>2</sup></li>
+    <li><strong>Zhengguang Zhou</strong><sup>2</sup></li>
+    <li><strong>Zhaoxin Fan</strong><sup>3</sup></li>
+    <li class="author-break" aria-hidden="true"></li>
+    <li><strong>Hongyan Liu</strong><sup>4✉</sup></li>
+    <li><strong>Yuan Zhou</strong><sup>2†</sup></li>
+    <li><strong>Qinglin Lu</strong><sup>2✉</sup></li>
+    <li><strong>Jun He</strong><sup>1✉</sup></li>
+  </ul>
+
+  <ul class="affiliations">
+    <li><sup>1</sup> Renmin University of China</li>
+    <li><sup>2</sup> Tencent Hunyuan</li>
+    <li><sup>3</sup> Beihang University</li>
+    <li><sup>4</sup> Tsinghua University</li>
+  </ul>
+
+  <p class="author-notes">
+    <span><sup>†</sup> Project Leader</span>
+    <span><sup>✉</sup> Corresponding Author</span>
+    <span><sup>*</sup> Work done during an internship at Tencent Hunyuan</span>
+  </p>
+</div>
+
+            <div style="max-width: 900px; margin: 48px auto 0; padding: 28px; background: #111111; border-radius: 12px; border: 1px solid #333333; text-align: left;">
+                <p style="color: #cccccc; line-height: 1.8; font-size: 18px; margin-bottom: 16px;">
+                    We present <strong style="color: #ffffff; font-weight: 600;">ActAvatar</strong>, a novel framework that achieves
+                    <strong style="color: #ffffff; font-weight: 600;">precise temporal control</strong> over talking avatar actions at the phase level.
+                    While existing methods generate avatars from holistic text descriptions without temporal grounding, ActAvatar introduces
+                    <span style="color: #66ccff; font-weight: 500;">structured prompts with explicit temporal boundaries</span>, enabling users to
+                    specify exactly <strong style="color: #ffffff; font-weight: 600;">when</strong> and <strong style="color: #ffffff; font-weight: 600;">what</strong>
+                    actions should occur during speech.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ours">
+        <div class="title">ActAvatar Results Gallery</div>
+        <div class="description">
+            Below we showcase diverse talking avatars generated by ActAvatar with <span class="highlight">phase-level temporal precision</span>.
+            Each video demonstrates our model's ability to execute <span class="highlight">fine-grained, temporally-grounded actions</span>
+            synchronized with speech, following structured prompts that specify exact timing and semantic content of gestures, head movements,
+            and expressions. Notice how actions occur at precise moments aligned with speech phases, achieving natural coordination
+            between audio and motion that prior methods struggle to capture.
+        </div>
+
+        <!-- Featured Results -->
+        <div class="ours-container">
+            <div style="margin-bottom: 20px; padding: 16px 2%; background: #0a0a0a; border-left: 4px solid #66ccff;">
+                <h3 style="margin: 0; font-size: 22px; font-weight: 600; color: #fff;">Examples</h3>
+                <p style="margin: 8px 0 0 0; color: #999; font-size: 15px;">
+                    Examples demonstrating ActAvatar's performance across various action types and temporal complexities.
+                </p>
+            </div>
+            <div id="ours-grid">
+                <!-- Priority videos -->
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/26.mp4"></video>
+                    <div class="prompt">26.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/19.mp4"></video>
+                    <div class="prompt">19.mp4</div>
+                </div>
+               <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/58.mp4"></video>
+                    <div class="prompt">58.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/28.mp4"></video>
+                    <div class="prompt">28.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/30.mp4"></video>
+                    <div class="prompt">30.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/11.mp4"></video>
+                    <div class="prompt">11.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/14.mp4"></video>
+                    <div class="prompt">14.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/8.mp4"></video>
+                    <div class="prompt">8.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/45.mp4"></video>
+                    <div class="prompt">45.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/24.mp4"></video>
+                    <div class="prompt">24.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/54.mp4"></video>
+                    <div class="prompt">54.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/2.mp4"></video>
+                    <div class="prompt">2.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/42.mp4"></video>
+                    <div class="prompt">42.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/35.mp4"></video>
+                    <div class="prompt">35.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/38.mp4"></video>
+                    <div class="prompt">38.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/52.mp4"></video>
+                    <div class="prompt">52.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/34.mp4"></video>
+                    <div class="prompt">34.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/1.mp4"></video>
+                    <div class="prompt">1.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/61.mp4"></video>
+                    <div class="prompt">61.mp4</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete Gallery (Collapsible) -->
+        <div class="ours-container" style="margin-top: 60px;">
+            <div style="padding: 0 10%; text-align: center;">
+                <button id="toggle-gallery-btn" onclick="toggleGallery()" style="
+                    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+                    color: #fff;
+                    border: none;
+                    padding: 14px 32px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+                ">
+                    <span id="btn-text">▼ Show Complete Gallery (41 more videos)</span>
+                </button>
+            </div>
+
+            <div id="complete-gallery" style="display: none; margin-top: 30px;">
+                <div style="margin-bottom: 20px; padding: 16px 2%; background: #0a0a0a; border-left: 4px solid #999;">
+                    <h3 style="margin: 0; font-size: 22px; font-weight: 600; color: #fff;">Complete Gallery</h3>
+                    <p style="margin: 8px 0 0 0; color: #999; font-size: 15px;">
+                        Additional results demonstrating ActAvatar's consistency and robustness across diverse scenarios.
+                    </p>
+                </div>
+                <div id="ours-grid-extended">
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/9.mp4"></video>
+                    <div class="prompt">9.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/17.mp4"></video>
+                    <div class="prompt">17.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/32.mp4"></video>
+                    <div class="prompt">32.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/36.mp4"></video>
+                    <div class="prompt">36.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/43.mp4"></video>
+                    <div class="prompt">43.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/49.mp4"></video>
+                    <div class="prompt">49.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/22.mp4"></video>
+                    <div class="prompt">22.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/3.mp4"></video>
+                    <div class="prompt">3.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/4.mp4"></video>
+                    <div class="prompt">4.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/5.mp4"></video>
+                    <div class="prompt">5.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/6.mp4"></video>
+                    <div class="prompt">6.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/10.mp4"></video>
+                    <div class="prompt">10.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/12.mp4"></video>
+                    <div class="prompt">12.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/13.mp4"></video>
+                    <div class="prompt">13.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/27.mp4"></video>
+                    <div class="prompt">27.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/29.mp4"></video>
+                    <div class="prompt">29.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/31.mp4"></video>
+                    <div class="prompt">31.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/15.mp4"></video>
+                    <div class="prompt">15.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/16.mp4"></video>
+                    <div class="prompt">16.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/60.mp4"></video>
+                    <div class="prompt">60.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/18.mp4"></video>
+                    <div class="prompt">18.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/20.mp4"></video>
+                    <div class="prompt">20.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/21.mp4"></video>
+                    <div class="prompt">21.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/23.mp4"></video>
+                    <div class="prompt">23.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/25.mp4"></video>
+                    <div class="prompt">25.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/33.mp4"></video>
+                    <div class="prompt">33.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/37.mp4"></video>
+                    <div class="prompt">37.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/39.mp4"></video>
+                    <div class="prompt">39.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/40.mp4"></video>
+                    <div class="prompt">40.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/41.mp4"></video>
+                    <div class="prompt">41.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/44.mp4"></video>
+                    <div class="prompt">44.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/46.mp4"></video>
+                    <div class="prompt">46.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/47.mp4"></video>
+                    <div class="prompt">47.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/48.mp4"></video>
+                    <div class="prompt">48.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/56.mp4"></video>
+                    <div class="prompt">56.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/57.mp4"></video>
+                    <div class="prompt">57.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/50.mp4"></video>
+                    <div class="prompt">50.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/51.mp4"></video>
+                    <div class="prompt">51.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/53.mp4"></video>
+                    <div class="prompt">53.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/55.mp4"></video>
+                    <div class="prompt">55.mp4</div>
+                </div>
+                <div class="prompt-wrap">
+                    <video playsinline controls src="./videos/59.mp4"></video>
+                    <div class="prompt">59.mp4</div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparison-new">
+        <div class="title">Qualitative Comparisons</div>
+        <div class="ours-container">
+            <div class="description">
+                We show qualitative comparisons on four representative prompts.
+                Each row uses the same reference image, audio and action description, while different
+                methods generate the avatar motion. The name of each method is shown under the video.
+            </div>
+
+        <!-- Example 1 -->
+            <div class="description" style="margin-top: 40px; padding-left: 16px; border-left: 4px solid #4a90e2;">
+                <strong>Scenario 1: Thoughtful Chess Analysis</strong><br>
+                <span style="color: #999; font-size: 14px;">
+                    A middle-aged man sits at a chessboard, reflecting on his next move. The action description
+                    requires him to first lift his head upward and to the left, then raise his left hand to chest
+                    level in an open questioning gesture before returning to look at the board.
+                </span>
+            </div>
+        <div class="flex-row comparison-grid">
+            <div class="prompt-wrap">
+                <video class="sync-106" playsinline controls src="./videos/2.mp4"></video>
+                <div class="method-label">ActAvatar (ours)</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-106" muted playsinline controls src="./compare/1_FantasyTalking.mp4"></video>
+                <div class="method-label">FantasyTalking</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-106" muted playsinline controls src="./compare/1_OmniAvatar.mp4"></video>
+                <div class="method-label">OmniAvatar</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-106" muted playsinline controls src="./compare/1_StableAvatar.mp4"></video>
+                <div class="method-label">StableAvatar</div>
+            </div>
+        </div>
+
+        <!-- Example 2 -->
+            <div class="description" style="margin-top: 60px; padding-left: 16px; border-left: 4px solid #4a90e2;">
+                <strong>Scenario 2: Artist Explaining Her Process</strong><br>
+                <span style="color: #999; font-size: 14px;">
+                    A woman stands in an art gallery, explaining her creative process. The prompt asks
+                    her to first lift her head from a downward gaze to look forward while holding a
+                    sketchbook, then release the sketchbook with her left hand and gesture outward
+                    and upward to chest level.
+                </span>
+            </div>
+        <div class="flex-row comparison-grid">
+            <div class="prompt-wrap">
+                <video class="sync-13" playsinline controls src="./videos/8.mp4"></video>
+                <div class="method-label">ActAvatar (ours)</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-13" muted playsinline controls src="./compare/2_EchomimicV3.mp4"></video>
+                <div class="method-label">EchoMimicV3</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-13" muted playsinline controls src="./compare/2_HunyuanVideo-Avatar.mp4"></video>
+                <div class="method-label">HunyuanVideo-Avatar</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-13" muted playsinline controls src="./compare/2_WanS2V.mp4"></video>
+                <div class="method-label">WanS2V</div>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+            <div class="description" style="margin-top: 60px; padding-left: 16px; border-left: 4px solid #4a90e2;">
+                <strong>Scenario 3: Elderly Woman in a Garden</strong><br>
+                <span style="color: #999; font-size: 14px;">
+                    An elderly woman crouches in her sunny garden, warmly talking about her flowers.
+                    The two phases involve first gesturing broadly to indicate the whole garden, then
+                    bringing her hand back to point down toward the flowers in front of her.
+                </span>
+            </div>
+        <div class="flex-row comparison-grid">
+            <div class="prompt-wrap">
+                <video class="sync-122" playsinline controls src="./videos/7.mp4"></video>
+                <div class="method-label">ActAvatar (ours)</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-122" muted playsinline controls src="./compare/3_EchomimicV3.mp4"></video>
+                <div class="method-label">EchoMimicV3</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-122" muted playsinline controls src="./compare/3_FantasyTalking.mp4"></video>
+                <div class="method-label">FantasyTalking</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-122" muted playsinline controls src="./compare/3_WanS2V.mp4"></video>
+                <div class="method-label">WanS2V</div>
+            </div>
+        </div>
+
+        <!-- Example 4 -->
+            <div class="description" style="margin-top: 60px; padding-left: 16px; border-left: 4px solid #4a90e2;">
+                <strong>Scenario 4: Director Framing a Shot</strong><br>
+                <span style="color: #999; font-size: 14px;">
+                    A male director in a studio uses his hands to frame a shot while giving instructions.
+                    The action sequence requires him to first narrow the hand frame by moving his hands
+                    inward, then widen it by moving both hands out toward shoulder width in a pull-back
+                    motion.
+                </span>
+            </div>
+        <div class="flex-row comparison-grid">
+            <div class="prompt-wrap">
+                <video class="sync-289" playsinline controls src="./videos/25.mp4"></video>
+                <div class="method-label">ActAvatar (ours)</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-289" muted playsinline controls src="./compare/4_Hallo3.mp4"></video>
+                <div class="method-label">Hallo3</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-289" muted playsinline controls src="./compare/4_MultiTalk.mp4"></video>
+                <div class="method-label">MultiTalk</div>
+            </div>
+            <div class="prompt-wrap">
+                <video class="sync-289" muted playsinline controls src="./compare/4_StableAvatar.mp4"></video>
+                <div class="method-label">StableAvatar</div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section id="pipeline">
+        <div class="title">Method Overview</div>
+        <div class="description">
+            ActAvatar introduces a novel framework for <span class="highlight">phase-level temporal action control</span> in talking avatar generation.
+            Our approach consists of three key technical innovations: <strong>(1) Phase-Aware Cross-Attention (PACA)</strong>, which enables
+            fine-grained temporal grounding by injecting phase-specific action features at precise moments;
+            <strong>(2) Progressive Audio-Visual Alignment</strong>, achieving tight synchronization between speech and motion through
+            hierarchical feature matching; and <strong>(3) Two-Stage Training with Structured Prompts</strong>, where we leverage an MLLM
+            to generate action descriptions with explicit temporal boundaries. The architecture builds upon a pre-trained video diffusion model,
+            augmented with our temporal control modules to achieve unprecedented precision in action timing and semantic fidelity.
+        </div>
+        <div class="pipeline-wrap">
+            <img src="imgs/pipeline.png" alt="ActAvatar pipeline diagram">
+        </div>
+    </section>
+
+    <section id="bibtex">
+        <div class="title">Citation</div>
+        <div class="description">
+            If you find ActAvatar useful for your research, please consider citing our paper:
+        </div>
+        <div class="content">
+            <pre style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; overflow-x: auto; color: #66ccff; font-family: monospace; font-size: 14px; line-height: 1.6;">@article{peng2025actavatar,
+                title={ActAvatar: Temporally-Aware Precise Action Control for Talking Avatars},
+                author={Peng, Ziqiao and Chen, Yi and Ma, Yifeng and Zhang, Guozhen and Sun, Zhiyao and Zhou, Zixiang and Zhang, Youliang and Zhou, Zhengguang and Fan, Zhaoxin and Liu, Hongyan and Zhou, Yuan and Lu, Qinglin and He, Jun },
+                journal={arXiv preprint arXiv:2512.11111},
+                year={2025}
+              }
+</pre>
+        </div>
+    </section>
+</body>
+<script>
+// Toggle gallery function
+function toggleGallery() {
+    const gallery = document.getElementById('complete-gallery');
+    const btn = document.getElementById('toggle-gallery-btn');
+    const btnText = document.getElementById('btn-text');
+
+    if (gallery.style.display === 'none') {
+        gallery.style.display = 'block';
+        btnText.textContent = '▲ Hide Complete Gallery';
+        btn.style.background = 'linear-gradient(135deg, #666 0%, #444 100%)';
+        // Smooth scroll to gallery
+        setTimeout(() => {
+            gallery.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    } else {
+        gallery.style.display = 'none';
+        btnText.textContent = '▼ Show Complete Gallery (41 more videos)';
+        btn.style.background = 'linear-gradient(135deg, #4a90e2 0%, #357abd 100%)';
+        // Scroll back to button
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// Button hover effect
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('toggle-gallery-btn');
+    if (btn) {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px rgba(74, 144, 226, 0.4)';
+        });
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 12px rgba(74, 144, 226, 0.3)';
+        });
+    }
+
+    // Track video play/pause state for gallery + comparison videos and control visibility
+    const galleryVideos = document.querySelectorAll('#ours-grid video, #ours-grid-extended video, #comparison-new video');
+    galleryVideos.forEach(video => {
+        // start with controls hidden
+        video.controls = false;
+
+        video.addEventListener('mouseenter', function() {
+            this.controls = true;
+        });
+        video.addEventListener('mouseleave', function() {
+            if (this.paused) {
+                this.controls = false;
+            }
+        });
+
+        // For touch devices: tap to show controls
+        video.addEventListener('touchstart', function() {
+            this.controls = true;
+        }, { passive: true });
+
+        video.addEventListener('play', function() {
+            this.classList.add('playing');
+        });
+        video.addEventListener('pause', function() {
+            this.classList.remove('playing');
+        });
+        video.addEventListener('ended', function() {
+            this.classList.remove('playing');
+            this.controls = false;
+        });
+    });
+});
+
+// Simple per-example sync: play/pause all methods together for same ID.
+function setupSync(groupClass) {
+  const videos = Array.from(document.querySelectorAll('video.' + groupClass));
+  if (videos.length === 0) return;
+  let syncing = false;
+
+  videos.forEach(v => {
+    v.addEventListener('play', () => {
+      if (syncing) return;
+      syncing = true;
+      const t = v.currentTime;
+      videos.forEach(o => {
+        if (o === v) return;
+        try { o.currentTime = t; } catch (e) {}
+        if (o.paused) o.play().catch(() => {});
+      });
+      syncing = false;
+    });
+
+    v.addEventListener('pause', () => {
+      if (syncing) return;
+      syncing = true;
+      videos.forEach(o => {
+        if (o === v) return;
+        if (!o.paused) o.pause();
+      });
+      syncing = false;
+    });
+  });
+}
+
+// Match baseline video aspect to our result (first video in each group)
+function unifyAspect(groupClass) {
+  const videos = Array.from(document.querySelectorAll('video.' + groupClass));
+  if (videos.length === 0) return;
+  const ref = videos[0];
+
+  const apply = () => {
+    const w = ref.videoWidth;
+    const h = ref.videoHeight;
+    if (!w || !h) return;
+    const ratio = w + ' / ' + h;
+    videos.forEach(v => {
+      const wrap = v.parentElement;
+      if (!wrap) return;
+      wrap.style.aspectRatio = ratio;
+    });
+  };
+
+  if (ref.readyState >= 1) {
+    apply();
+  } else {
+    ref.addEventListener('loadedmetadata', apply, { once: true });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const groups = ['sync-106', 'sync-122', 'sync-13', 'sync-289'];
+  groups.forEach(setupSync);
+  groups.forEach(unifyAspect);
+
+  // Global: allow only one active video at a time, except synced comparison groups
+  const allVideos = Array.from(document.querySelectorAll('video'));
+  allVideos.forEach(v => {
+    v.addEventListener('play', () => {
+      const syncClasses = Array.from(v.classList).filter(c => c.startsWith('sync-'));
+
+      allVideos.forEach(o => {
+        if (o === v) return;
+        if (o.paused) return;
+
+        if (syncClasses.length > 0) {
+          const oSyncClasses = Array.from(o.classList).filter(c => c.startsWith('sync-'));
+          const shareGroup = syncClasses.some(c => oSyncClasses.includes(c));
+          if (shareGroup) return; // same comparison group, keep playing
+        }
+
+        o.pause();
+      });
+    });
+  });
+});
+</script>
+</html>
