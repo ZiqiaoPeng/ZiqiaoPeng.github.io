@@ -23,7 +23,7 @@
               <tr style="padding:0px">
                 <td style="padding:2.5%;width:63%;vertical-align:middle">
                   <p style="text-align:center">
-                    <name>Ziqiao Peng 彭子乔</name>
+                    <name><span style="font-family: 'Times New Roman', Times, serif;">Ziqiao Peng</span> <span style="font-family: 'KaiTi', 'STKaiti', 'AR PL UKai CN', serif;">彭子乔</span></name>
                   </p>
                   <p style="margin-top:16px;">
                     I am a fourth-year PhD candidate at 
@@ -36,11 +36,16 @@
                   <p style="margin-top:12px; padding:12px 16px; background:linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius:8px; font-size:14px;">
                     🎓 I am expected to graduate in <strong>June 2027</strong> and actively seeking <strong>full-time positions</strong> in China and abroad. Feel free to reach out!<br>我预计于<strong>2027年6月</strong>毕业，正在寻找<strong>国内外全职工作机会</strong>，欢迎联系！
                   </p>
-                  <div class="links-row">
+                  <div class="links-row" style="justify-content:center;margin-top:16px;">
                     <a href="mailto:pengziqiao@ruc.edu.cn"><i class="fas fa-envelope"></i> Email</a>
                     <a href="https://github.com/ZiqiaoPeng" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://scholar.google.com/citations?user=gYTyZGYAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Scholar</a>
-                    <a href="images/wechat-qr.jpg" target="_blank"><i class="fab fa-weixin"></i> WeChat</a>
+                    <div class="wechat-wrapper" style="display:inline-block;position:relative;">
+                      <a href="javascript:void(0)" onclick="toggleWechatQR()" id="wechat-link"><i class="fab fa-weixin"></i> WeChat</a>
+                      <div id="wechat-qr-popup" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:10px;background:white;padding:10px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:100;">
+                        <img src="images/wechat-qr.jpg" style="width:200px;height:auto;border-radius:4px;">
+                      </div>
+                    </div>
                   </div>
                 </td>
                 <td style="padding:2.5%;width:35%;max-width:35%">
@@ -643,5 +648,24 @@
       </tr>
     </tbody>
   </table>
+<script>
+function toggleWechatQR() {
+  var popup = document.getElementById('wechat-qr-popup');
+  if (popup.style.display === 'none') {
+    popup.style.display = 'block';
+  } else {
+    popup.style.display = 'none';
+  }
+}
+
+// Click outside to close
+document.addEventListener('click', function(e) {
+  var wrapper = document.querySelector('.wechat-wrapper');
+  var popup = document.getElementById('wechat-qr-popup');
+  if (wrapper && !wrapper.contains(e.target)) {
+    popup.style.display = 'none';
+  }
+});
+</script>
 </body>
 </html>
