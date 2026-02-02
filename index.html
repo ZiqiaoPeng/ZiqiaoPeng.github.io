@@ -1,367 +1,646 @@
 <!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <title>Ziqiao Peng</title>
-  
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Ziqiao Peng - Academic Homepage</title>
   <meta name="author" content="Ziqiao Peng">
+  <meta name="description" content="Ziqiao Peng's academic homepage - Research on Generative AI and Digital Humans, focusing on audio-driven talking avatar synthesis, lip synchronization, and real-time interactive avatars.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 </head>
 
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Ziqiao Peng</name>
-              </p>
-              <p>I am a fourth-year PhD candidate at 
-                <a href="https://www.ruc.edu.cn/en">Renmin University of China</a>,
-                 supervised by <a href="http://info.ruc.edu.cn/jsky/rtjs/d696a551fefc4b0ab6f90e02b01f3529.htm">Prof. Jun He</a> from Renmin University of China and <a href="https://www.sem.tsinghua.edu.cn/info/1189/32080.htm">Prof. Hongyan Liu</a> from Tsinghua University.
-              </p>
-              <p>
-                I'm actively seeking internship opportunities that align with my research interests. If you know of any openings or have recommendations, I'd greatly appreciate your input.
-              </p>               
-              <p>
-                My areas of focus include AI-generated content, talking head generation, and video generation.
-              </p>              
-              <p style="text-align:center">
-                <a href="mailto:pengziqiao@ruc.edu.cn">Email</a> &nbsp/&nbsp
-                <a href="https://github.com/ZiqiaoPeng">Github</a>  &nbsp/&nbsp
-                <a href="https://scholar.google.com/citations?user=gYTyZGYAAAAJ&hl">Google Scholar</a>  
-
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/ZiqiaoPeng.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/ZiqiaoPeng.jpg" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Research</heading>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-				
-<tr onmouseout="omnisync_stop()" onmouseover="omnisync_start()" >
-  <td style="padding:20px;width:25%;vertical-align:middle">
-    <div class="two" id="omnisync_image" style="display: inline;"> 
-      <video  width="320" height="180" muted autoplay loop>
-      <source src="images/omnisync/omnisync.mp4" alt="omnisync mp4" width="320" height="180" type="video/mp4">
-      </video>
-    </div>
-      <img src='images/omnisync/omnisync.png' alt="omnisync" width="320" height="180">
-    </div>
-    <script type="text/javascript">
-      function omnisync_start() {
-        document.getElementById('omnisync_image').style.opacity = "1";
-      }
-
-      function omnisync_stop() {
-        document.getElementById('omnisync_image').style.opacity = "0";
-      }
-      omnisync_stop()
-    </script>
-  </td>
-  <td style="padding:20px;width:75%;vertical-align:middle">
-    <a href="./OmniSync">
-      <papertitle>[NeurIPS 2025 Spotlight] OmniSync: Towards Universal Lip Synchronization via Diffusion Transformers</papertitle>
-    </a>
-    <br>
-    <strong>Ziqiao Peng</strong>,
-    Jiwen Liu,
-    Haoxian Zhang,
-    Xiaoqiang Liu,
-    Songlin Tang,
-    Pengfei Wan,
-    Di Zhang,
-    Hongyan Liu,
-    Jun He
-    <br>
-    
-    <a href="./OmniSync">Project</a>
-    /
-    <a href="https://arxiv.org/pdf/2505.21448">arXiv</a>
-    <p></p>
-    <p>
-      We present OmniSync, a universal lip synchronization framework for diverse visual scenarios. 
-    </p>
-  </td>
-</tr>
-
-<tr onmouseout="dualtalk_stop()" onmouseover="dualtalk_start()" >
-  <td style="padding:20px;width:25%;vertical-align:middle">
-    <div class="two" id="dualtalk_image" style="display: inline;"> 
-      <video  width="320" height="180" muted autoplay loop>
-      <source src="images/dualtalk/dualtalk.mp4" alt="dualtalk mp4" width="320" height="180" type="video/mp4">
-      </video>
-    </div>
-      <img src='images/dualtalk/dualtalk.png' alt="dualtalk" width="320" height="180">
-    </div>
-    <script type="text/javascript">
-      function dualtalk_start() {
-        document.getElementById('dualtalk_image').style.opacity = "1";
-      }
-
-      function dualtalk_stop() {
-        document.getElementById('dualtalk_image').style.opacity = "0";
-      }
-      dualtalk_stop()
-    </script>
-  </td>
-  <td style="padding:20px;width:75%;vertical-align:middle">
-    <a href="./dualtalk">
-      <papertitle>[CVPR 2025] DualTalk: Dual-Speaker Interaction for 3D Talking Head Conversations</papertitle>
-    </a>
-    <br>
-    <strong>Ziqiao Peng</strong>,
-    Yanbo Fan,
-    Haoyu Wu,
-    Xuan Wang,
-    Hongyan Liu,
-    Jun He,
-    Zhaoxin Fan
-    <br>
-    
-    <a href="./dualtalk">Project</a>
-    /
-    <a href="https://arxiv.org/abs/2505.18096">arXiv</a>
-    <p></p>
-    <p>
-      We propose a new task -- multi-round dual-speaker interaction for 3D talking head generation -- which requires models to handle and generate both speaking and listening behaviors in continuous conversation.
-    </p>
-  </td>
-</tr>
-
-<tr onmouseout="synctalkpp_stop()" onmouseover="synctalkpp_start()" >
-  <td style="padding:20px;width:25%;vertical-align:middle">
-    <div class="two" id="synctalkpp_image" style="display: inline;"> 
-      <video  width="320" height="180" muted autoplay loop>
-      <source src="images/synctalkpp/synctalkpp.mp4" alt="synctalkpp mp4" width="320" height="180" type="video/mp4">
-      </video>
-    </div>
-      <img src='images/synctalkpp/synctalkpp.png' alt="synctalkpp" width="320" height="180">
-    </div>
-    <script type="text/javascript">
-      function synctalkpp_start() {
-        document.getElementById('synctalkpp_image').style.opacity = "1";
-      }
-
-      function synctalkpp_stop() {
-        document.getElementById('synctalkpp_image').style.opacity = "0";
-      }
-      synctalkpp_stop()
-    </script>
-  </td>
-  <td style="padding:20px;width:75%;vertical-align:middle">
-    <a href="./synctalk++">
-      <papertitle>[TPAMI] SyncTalk++: High-Fidelity and Efficient Synchronized Talking Heads Synthesis Using Gaussian Splatting</papertitle>
-    </a>
-    <br>
-    <strong>Ziqiao Peng</strong>,
-    Wentao Hu,
-    Junyuan Ma,
-    Xiangyu Zhu,
-    Xiaomei Zhang,
-    Hao Zhao,
-    Hui Tian,
-    Jun He,
-    Hongyan Liu,
-    Zhaoxin Fan
-    <br>
-    
-    <a href="./synctalk++">Project</a>
-    /
-    <a href="https://arxiv.org/">arXiv</a>
-    <p></p>
-    <p>
-      We propose a 3DGS-based method to synthesis realistic talking head videos with better OOD quality.
-    </p>
-  </td>
-</tr>
-
-<tr onmouseout="synctalk_stop()" onmouseover="synctalk_start()" >
-  <td style="padding:20px;width:25%;vertical-align:middle">
-    <div class="two" id="synctalk_image" style="display: inline;"> 
-      <video  width="320" height="180" muted autoplay loop>
-      <source src="images/synctalk/synctalk.mp4" alt="synctalk mp4" width="320" height="180" type="video/mp4">
-      </video>
-    </div>
-      <img src='images/synctalk/synctalk.png' alt="synctalk" width="320" height="180">
-    </div>
-    <script type="text/javascript">
-      function synctalk_start() {
-        document.getElementById('synctalk_image').style.opacity = "1";
-      }
-
-      function synctalk_stop() {
-        document.getElementById('synctalk_image').style.opacity = "0";
-      }
-      synctalk_stop()
-    </script>
-  </td>
-  <td style="padding:20px;width:75%;vertical-align:middle">
-    <a href="./synctalk">
-      <papertitle>[CVPR 2024] SyncTalk: The Devil is in the Synchronization for Talking Head Synthesis</papertitle>
-    </a>
-    <br>
-    <strong>Ziqiao Peng</strong>,
-    Wentao Hu,
-    Yue Shi,
-    Xiangyu Zhu,
-    Xiaomei Zhang,
-    Hao Zhao,
-    Jun He,
-    Hongyan Liu,
-    Zhaoxin Fan
-    <br>
-    
-    <a href="./synctalk">Project</a>
-    /
-    <a href="https://arxiv.org/abs/2311.17590">arXiv</a>
-    /
-    <a href="https://github.com/ziqiaopeng/SyncTalk">Code</a>
-    <p></p>
-    <p>
-      We propose a NeRF-based method to synthesis realistic talking head videos.
-    </p>
-  </td>
-</tr>
+  <table style="width:100%;max-width:850px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr style="padding:0px">
+        <td style="padding:0px">
           
-<tr onmouseout="selftalk_stop()" onmouseover="selftalk_start()" >
-  <td style="padding:20px;width:25%;vertical-align:middle">
-    <div class="two" id="selftalk_image" style="display: inline;"> 
-      <video  width="320" height="180" muted autoplay loop>
-      <source src="images/selftalk/selftalk.mp4" alt="selftalk mp4" width="320" height="180" type="video/mp4">
-      </video>
-    </div>
-      <img src='images/selftalk/selftalk.png' alt="selftalk" width="320" height="180">
-    </div>
-    <script type="text/javascript">
-      function selftalk_start() {
-        document.getElementById('selftalk_image').style.opacity = "1";
-      }
+          <!-- Profile Section -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr style="padding:0px">
+                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                  <p style="text-align:center">
+                    <name>Ziqiao Peng 彭子乔</name>
+                  </p>
+                  <p style="margin-top:16px;">
+                    I am a fourth-year PhD candidate at 
+                    <a href="https://www.ruc.edu.cn/en">Renmin University of China</a>,
+                    supervised by <a href="http://info.ruc.edu.cn/jsky/rtjs/d696a551fefc4b0ab6f90e02b01f3529.htm">Prof. Jun He</a> from Renmin University of China and <a href="https://www.sem.tsinghua.edu.cn/info/1189/32080.htm">Prof. Hongyan Liu</a> from Tsinghua University.
+                  </p>
+                  <p style="margin-top:12px;">
+                    My research focuses on <strong>Generative AI</strong> and <strong>Digital Humans</strong>, with a focus on audio-driven talking avatar synthesis, lip synchronization, and real-time interactive avatars.
+                  </p>
+                  <p style="margin-top:12px; padding:12px 16px; background:linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius:8px; font-size:14px;">
+                    🎓 I am expected to graduate in <strong>June 2027</strong> and actively seeking <strong>full-time positions</strong> in China and abroad. Feel free to reach out!<br>我预计于<strong>2027年6月</strong>毕业，正在寻找<strong>国内外全职工作机会</strong>，欢迎联系！
+                  </p>
+                  <div class="links-row">
+                    <a href="mailto:pengziqiao@ruc.edu.cn"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/ZiqiaoPeng" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=gYTyZGYAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Scholar</a>
+                  </div>
+                </td>
+                <td style="padding:2.5%;width:35%;max-width:35%">
+                  <a href="images/ZiqiaoPeng.jpg">
+                    <img class="profile-photo" style="width:100%;max-width:100%" alt="Ziqiao Peng" src="images/ZiqiaoPeng.jpg">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-      function selftalk_stop() {
-        document.getElementById('selftalk_image').style.opacity = "0";
-      }
-      selftalk_stop()
-    </script>
-  </td>
-  <td style="padding:20px;width:75%;vertical-align:middle">
-    <a href="./selftalk">
-      <papertitle>[ACM MM 2023] SelfTalk: A Self-Supervised Commutative Training Diagram to Comprehend 3D Talking Faces</papertitle>
-    </a>
-    <br>
-    <strong>Ziqiao Peng</strong>,
-    Yihao Luo,
-    Yue Shi,
-    Hao Xu,
-    Xiangyu Zhu,
-    Hongyan Liu,
-    Jun He,
-    Zhaoxin Fan
-    <br>
-    
-    <a href="./selftalk">Project</a>
-    /
-    <a href="https://arxiv.org/abs/2306.10799">arXiv</a>
-    /
-    <a href="https://github.com/psyai-net/SelfTalk_release">Code</a>
-    <p></p>
-    <p>
-      We propose a novel framework called SelfTalk utilizes a cross-modal network system to generate coherent and visually comprehensible 3D talking faces by reducing the domain gap between different modalities.
-    </p>
-  </td>
-</tr>
+          <!-- News Section -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;width:100%;vertical-align:middle">
+                  <heading><i class="fas fa-newspaper" style="margin-right:8px;color:#2563eb;"></i>News</heading>
+                  <div class="news-section" style="margin-top:20px;">
+                    <div class="news-item">
+                      <span class="news-date">2025.11</span>
+                      <div class="news-content">
+                        <span class="news-tag paper">Journal</span>
+                        <strong>SyncTalk++</strong> accepted to <strong>IEEE TPAMI</strong>!
+                      </div>
+                    </div>
+                    <div class="news-item">
+                      <span class="news-date">2025.09</span>
+                      <div class="news-content" style="display:flex;align-items:center;gap:8px;">
+                        <span class="news-tag spotlight" style="margin-right:0;">Spotlight</span>
+                        <div>
+                          <strong>OmniSync</strong> accepted to <strong>NeurIPS 2025</strong> as Spotlight!<br>
+                          <a href="https://papercopilot.com/paper-list/neurips-paper-list/neurips-2025-paper-list/" target="_blank"><strong>Ranked 3rd</strong></a> among all NeurIPS 2025 papers 🏆
+                        </div>
+                      </div>
+                    </div>
+                    <div class="news-item">
+                      <span class="news-date">2025.09</span>
+                      <div class="news-content">
+                        <span class="news-tag new">New</span>
+                        <strong>MEGADance</strong> accepted to <strong>NeurIPS 2025</strong>!
+                      </div>
+                    </div>
+                    <div class="news-item">
+                      <span class="news-date">2025.06</span>
+                      <div class="news-content">
+                        <span class="news-tag spotlight">Spotlight</span>
+                        <strong>GGTalker</strong> accepted to <strong>ICCV 2025</strong> as Spotlight!
+                      </div>
+                    </div>
+                    <div class="news-item">
+                      <span class="news-date">2025.04</span>
+                      <div class="news-content">
+                        <span class="news-tag new">New</span>
+                        <strong>Morpheus</strong> accepted to <strong>RSS 2025</strong>!
+                      </div>
+                    </div>
+                    <div class="news-item">
+                      <span class="news-date">2025.03</span>
+                      <div class="news-content">
+                        <span class="news-tag new">New</span>
+                        <strong>DualTalk</strong> accepted to <strong>CVPR 2025</strong>!
+                      </div>
+                    </div>
+                    <div class="news-item">
+                      <span class="news-date">2024.02</span>
+                      <div class="news-content">
+                        <span class="news-tag new">New</span>
+                        <strong>SyncTalk</strong> accepted to <strong>CVPR 2024</strong>!
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-<tr onmouseout="emotalk_stop()" onmouseover="emotalk_start()" >
-  <td style="padding:20px;width:25%;vertical-align:middle">
-    <div class="two" id="emotalk_image" style="display: inline;"> 
-      <video  width="320" height="180" muted autoplay loop>
-      <source src="images/emotalk/emotalk.mp4" alt="emotalk mp4" width="320" height="180" type="video/mp4">
-      </video>
-    </div>
-      <img src='images/emotalk/emotalk.jpg' alt="emotalk" width="320" height="180">
-    </div>
-    <script type="text/javascript">
-      function emotalk_start() {
-        document.getElementById('emotalk_image').style.opacity = "1";
-      }
+          <!-- Experience Section -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;width:100%;vertical-align:middle">
+                  <heading><i class="fas fa-briefcase" style="margin-right:8px;color:#2563eb;"></i>Experience</heading>
+                  <div class="experience-section" style="margin-top:20px;">
+                    
+                    <div class="experience-item" style="display:flex;align-items:center;margin-bottom:16px;padding:16px;background:#f8fafc;border-radius:8px;border-left:3px solid #2563eb;">
+                      <img src="images/logos/heygen.png" alt="HeyGen" style="width:40px;height:40px;object-fit:contain;margin-right:16px;border-radius:8px;">
+                      <div style="flex:1;">
+                        <div style="font-weight:600;color:#1e293b;">HeyGen — AI Research Team</div>
+                        <div style="font-size:13px;color:#64748b;margin-top:4px;">Research Intern · Multimodal Video Generation & Real-Time Streaming</div>
+                      </div>
+                      <div style="font-size:13px;color:#64748b;white-space:nowrap;">Dec 2025 - Present</div>
+                    </div>
 
-      function emotalk_stop() {
-        document.getElementById('emotalk_image').style.opacity = "0";
-      }
-      emotalk_stop()
-    </script>
-  </td>
-  <td style="padding:20px;width:75%;vertical-align:middle">
-    <a href="./emotalk">
-      <papertitle>[ICCV 2023] EmoTalk: Speech-Driven Emotional Disentanglement for 3D Face Animation</papertitle>
-    </a>
-    <br>
-    <strong>Ziqiao Peng</strong>,
-    Haoyu Wu,
-    Zhenbo Song,
-    Hao Xu,
-    Xiangyu Zhu,
-    Hongyan Liu,
-    Jun He,
-    Zhaoxin Fan
-    <br>
-    
-    <a href="./emotalk">Project</a>
-    /
-    <a href="https://arxiv.org/abs/2303.11089">arXiv</a>
-    /
-    <a href="https://github.com/psyai-net/EmoTalk_release">Code</a>
-    <p></p>
-    <p>
-      We propose an end-to-end neural network for speech-driven emotion-enhanced 3D facial animation.
-    </p>
-  </td>
-</tr>
+                    <div class="experience-item" style="display:flex;align-items:center;margin-bottom:16px;padding:16px;background:#f8fafc;border-radius:8px;border-left:3px solid #2563eb;">
+                      <img src="images/logos/hunyuan.png" alt="Hunyuan" style="width:40px;height:40px;object-fit:contain;margin-right:16px;border-radius:8px;">
+                      <div style="flex:1;">
+                        <div style="font-weight:600;color:#1e293b;">Tencent — Hunyuan Video Team</div>
+                        <div style="font-size:13px;color:#64748b;margin-top:4px;">Research Intern · Text-Driven Video Action Generation</div>
+                      </div>
+                      <div style="font-size:13px;color:#64748b;white-space:nowrap;">Jun 2025 - Dec 2025</div>
+                    </div>
 
-        </tbody></table>
-        <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin:30px auto 0 auto;">
-          <tr>
-            <td style="padding:24px 32px;background:#f7f7fa;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);text-align:center;">
-              <heading style="font-size:1.2em;color:#333;">Review Service</heading>
-              <div style="margin-top:12px;margin-bottom:6px;">
-                <span style="font-weight:bold;">Conferences:</span> 
-                CVPR, NeurIPS, ICCV, ECCV, ACM MM, ICME, Eurographics
-              </div>
-              <div style="margin-bottom:0;">
-                <span style="font-weight:bold;">Journals:</span> 
-                IJCV, TIP, TMM, TOMM, IET Image Processing, IET Computer Vision
-              </div>
-            </td>
-          </tr>
-        </table>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-            <td style="padding:0px">
-              <br>
-              <p style="text-align:right;font-size:small;">
-                Last updated: June 2025
-                <br>
-                Web page design credit to <a href="https://jonbarron.info" style="font-size: 14px">Jon Barron</a>
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
+                    <div class="experience-item" style="display:flex;align-items:center;margin-bottom:16px;padding:16px;background:#f8fafc;border-radius:8px;border-left:3px solid #2563eb;">
+                      <img src="images/logos/kling.png" alt="Kling" style="width:40px;height:40px;object-fit:contain;margin-right:16px;border-radius:8px;">
+                      <div style="flex:1;">
+                        <div style="font-weight:600;color:#1e293b;">Kuaishou — Kling GenAI Team</div>
+                        <div style="font-size:13px;color:#64748b;margin-top:4px;">Research Intern · Universal Video Editing for AIGC</div>
+                      </div>
+                      <div style="font-size:13px;color:#64748b;white-space:nowrap;">Jan 2025 - Jun 2025</div>
+                    </div>
+
+                    <div class="experience-item" style="display:flex;align-items:center;margin-bottom:16px;padding:16px;background:#f8fafc;border-radius:8px;border-left:3px solid #2563eb;">
+                      <img src="images/logos/antgroup.png" alt="Ant Group" style="width:40px;height:40px;object-fit:contain;margin-right:16px;border-radius:8px;">
+                      <div style="flex:1;">
+                        <div style="font-weight:600;color:#1e293b;">Ant Group — Ant Research</div>
+                        <div style="font-size:13px;color:#64748b;margin-top:4px;">Research Intern · Conversational Multi-Character Video Generation</div>
+                      </div>
+                      <div style="font-size:13px;color:#64748b;white-space:nowrap;">May 2024 - Dec 2024</div>
+                    </div>
+
+                    <div class="experience-item" style="display:flex;align-items:center;margin-bottom:16px;padding:16px;background:#f8fafc;border-radius:8px;border-left:3px solid #2563eb;">
+                      <img src="images/logos/pika.png" alt="Pika Labs" style="width:40px;height:40px;object-fit:contain;margin-right:16px;border-radius:8px;">
+                      <div style="flex:1;">
+                        <div style="font-weight:600;color:#1e293b;">Pika Labs — Feature Team</div>
+                        <div style="font-size:13px;color:#64748b;margin-top:4px;">Research Intern · Multimodal Video Generation</div>
+                      </div>
+                      <div style="font-size:13px;color:#64748b;white-space:nowrap;">Jan 2024 - May 2024</div>
+                    </div>
+
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Publications Section -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;width:100%;vertical-align:middle">
+                  <heading><i class="fas fa-book" style="margin-right:8px;color:#2563eb;"></i>Publications</heading>
+                  <p style="margin-top:8px;font-size:13px;color:#6b7280;">* denotes equal contribution / co-first author</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+
+              <!-- ==================== 2025 ==================== -->
+              <tr>
+                <td colspan="2" style="padding:20px 20px 10px 20px;">
+                  <h3 style="color:#2563eb;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin:0;">2025</h3>
+                </td>
+              </tr>
+
+              <!-- ===== 2025 一作/共一 ===== -->
+
+              <!-- OmniSync (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/omnisync/omnisync.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./OmniSync">
+                    <papertitle>OmniSync: Towards Universal Lip Synchronization via Diffusion Transformers</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag spotlight">NeurIPS 2025 Spotlight</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Jiwen Liu, Haoxian Zhang, Xiaoqiang Liu, Songlin Tang, Pengfei Wan, Di Zhang, Hongyan Liu, Jun He
+                  <div class="paper-links">
+                    <a href="./OmniSync"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/pdf/2505.21448"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- DualTalk (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/dualtalk/dualtalk.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./dualtalk">
+                    <papertitle>DualTalk: Dual-Speaker Interaction for 3D Talking Head Conversations</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag top">CVPR 2025</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Yanbo Fan, Haoyu Wu, Xuan Wang, Hongyan Liu, Jun He, Zhaoxin Fan
+                  <div class="paper-links">
+                    <a href="./dualtalk"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2505.18096"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- SyncTalk++ (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/synctalkpp/synctalkpp.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./synctalk++">
+                    <papertitle>SyncTalk++: High-Fidelity and Efficient Synchronized Talking Heads Synthesis Using Gaussian Splatting</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag journal">IEEE TPAMI 2025</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Wentao Hu, Junyuan Ma, Xiangyu Zhu, Xiaomei Zhang, Hao Zhao, Hui Tian, Jun He, Hongyan Liu, Zhaoxin Fan
+                  <div class="paper-links">
+                    <a href="./synctalk++"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- ActAvatar (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/actavatar/actavatar.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./ActAvatar">
+                    <papertitle>ActAvatar: Temporally-Aware Precise Action Control for Talking Avatars</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2025</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Yi Chen, Yifeng Ma, Guozhen Zhang, Zhiyao Sun, Zixiang Zhou, Youliang Zhang, Zixiang Zhou, Zhaoxin Fan, Yuan Zhou, Li Wang
+                  <div class="paper-links">
+                    <a href="./ActAvatar"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2512.19546"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- MEGADance (共一) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/megadance/megadance.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://arxiv.org/abs/2505.17543"><papertitle>MEGADance: Mixture-of-Experts Architecture for Genre-Aware 3D Dance Generation</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">NeurIPS 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Kaixing Yang*, Xulong Tang*, <strong>Ziqiao Peng</strong>*, Yuxuan Hu, Jun He, Hongyan Liu
+                  <div class="paper-links">
+                    <a href="https://arxiv.org/abs/2505.17543"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- MACE-Dance (共一) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/macedance/macedance.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://macedance.github.io/"><papertitle>MACE-Dance: Motion-Appearance Cascaded Experts for Music-Driven Dance Video Generation</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Kaixing Yang*, Jiashu Zhu*, Xulong Tang*, <strong>Ziqiao Peng</strong>*, Xiangyue Zhang, Puwei Wang, Jiahong Wu, Xiangxiang Chu, Hongyan Liu, Jun He
+                  <div class="paper-links">
+                    <a href="https://macedance.github.io/"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2512.18181"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- FlowerDance (共一) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/flowerdance/flowerdance.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://flowerdance25.github.io/"><papertitle>FlowerDance: MeanFlow for Efficient and Refined 3D Dance Generation</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Kaixing Yang*, Xulong Tang*, <strong>Ziqiao Peng</strong>*, Xiangyue Zhang, Puwei Wang, Jun He, Hongyan Liu
+                  <div class="paper-links">
+                    <a href="https://flowerdance25.github.io/"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2511.21029"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- ===== 2025 非一作 ===== -->
+
+              <!-- GGTalker -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/ggtalker/ggtalker.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://vincenthu19.github.io/GGTalker/"><papertitle>GGTalker: Talking Head Synthesis with Generalizable Gaussian Priors and Identity-Specific Adaptation</papertitle></a>
+                  <br>
+                  <span class="venue-tag spotlight">ICCV 2025 Spotlight</span>
+                  <br style="margin-bottom:8px;">
+                  Wentao Hu, Shuai Li, <strong>Ziqiao Peng</strong>, Haoxian Zhang, Fangzhou Shi, Xiaoqiang Liu, Pengfei Wan, Di Zhang, Hui Tian
+                  <div class="paper-links">
+                    <a href="https://vincenthu19.github.io/GGTalker/"><i class="fas fa-globe"></i> Project</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- StreamAvatar -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/streamavatar/streamavatar.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://streamavatar.github.io/"><papertitle>StreamAvatar: Streaming Diffusion Models for Real-Time Interactive Human Avatars</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Zhiyao Sun, <strong>Ziqiao Peng</strong>, Yifeng Ma, Yi Chen, Zixiang Zhou, Zixiang Zhou, Guozhen Zhang, Youliang Zhang, Yuan Zhou, Li Wang
+                  <div class="paper-links">
+                    <a href="https://streamavatar.github.io/"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2512.22065"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- UniAVGen -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/uniavgen/uniavgen.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://mcg-nju.github.io/UniAVGen/"><papertitle>UniAVGen: Unified Audio and Video Generation with Asymmetric Cross-Modal Interactions</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Guozhen Zhang, Zixiang Zhou, Tao Hu, <strong>Ziqiao Peng</strong>, Youliang Zhang, Yi Chen, Yuan Zhou, Qinglin Lu, Li Wang
+                  <div class="paper-links">
+                    <a href="https://mcg-nju.github.io/UniAVGen/"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2511.03334"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Morpheus -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/morpheus/morpheus.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://github.com/ZZongzheng0918/Morpheus-Software"><papertitle>Morpheus: A Neural-driven Animatronic Face with Hybrid Actuation and Diverse Emotion Control</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">RSS 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Zhenyu Zhang, Jiyuan Yang, <strong>Ziqiao Peng</strong>, Minghao Yang, Junyuan Ma, Lin Cheng, Hao Xu, Hao Zhao, Hao Zhao
+                  <div class="paper-links">
+                    <a href="https://github.com/ZZongzheng0918/Morpheus-Software"><i class="fab fa-github"></i> Code</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- CRUISE -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/cruise/cruise.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://github.com/SainingZhang/CRUISE"><papertitle>CRUISE: Cooperative Reconstruction and Editing in V2X Scenarios using Gaussian Splatting</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">IROS 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Hao Xu, Sheng Zhang, Peng Li, Bingchang Ye, Xuhui Chen, Hao Gao, Jiajun Zheng, Xuan Song, <strong>Ziqiao Peng</strong>, et al.
+                  <div class="paper-links">
+                    <a href="https://github.com/SainingZhang/CRUISE"><i class="fab fa-github"></i> Code</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Meta-Face -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/metaface/metaface.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://arxiv.org/abs/2408.09357"><papertitle>Meta-Learning Empowered Meta-Face: Personalized Speaking Style Adaptation for Audio-Driven 3D Talking Face Animation</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">ICME 2025</span>
+                  <br style="margin-bottom:8px;">
+                  Xiang Zhou, Fei Li, <strong>Ziqiao Peng</strong>, Kun Wu, Jun He, Bing Qin, Zhaoxin Fan, Hongyan Liu
+                  <div class="paper-links">
+                    <a href="https://arxiv.org/abs/2408.09357"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- ==================== 2024 ==================== -->
+              <tr>
+                <td colspan="2" style="padding:20px 20px 10px 20px;">
+                  <h3 style="color:#2563eb;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin:0;">2024</h3>
+                </td>
+              </tr>
+
+              <!-- SyncTalk (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/synctalk/synctalk.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./synctalk">
+                    <papertitle>SyncTalk: The Devil is in the Synchronization for Talking Head Synthesis</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag top">CVPR 2024</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Wentao Hu, Yue Shi, Xiangyu Zhu, Xiaomei Zhang, Hao Zhao, Jun He, Hongyan Liu, Zhaoxin Fan
+                  <div class="paper-links">
+                    <a href="./synctalk"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2311.17590"><i class="fas fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/ziqiaopeng/SyncTalk"><i class="fab fa-github"></i> Code</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- VGG-Tex -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/vggtex/vggtex.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://arxiv.org/abs/2409.09740"><papertitle>VGG-Tex: A Vivid Geometry-Guided Facial Texture Estimation Model for High Fidelity Monocular 3D Face Reconstruction</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2024</span>
+                  <br style="margin-bottom:8px;">
+                  Haoyu Wu, <strong>Ziqiao Peng</strong>, Xiang Zhou, Yinghao Cheng, Jun He, Hongyan Liu, Zhaoxin Fan
+                  <div class="paper-links">
+                    <a href="https://arxiv.org/abs/2409.09740"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- ModelGrow -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/modelgrow/modelgrow.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://arxiv.org/abs/2412.18966"><papertitle>ModelGrow: Continual Text-to-Video Pre-training with Model Expansion and Language Understanding Enhancement</papertitle></a>
+                  <br>
+                  <span class="venue-tag top">arXiv 2024</span>
+                  <br style="margin-bottom:8px;">
+                  Zhuofan Rao, Lei Ji, Yuxin Xing, Ruihua Liu, Ziyuan Liu, Jinyu Xie, <strong>Ziqiao Peng</strong>, Yixiao He, Qian Chen
+                  <div class="paper-links">
+                    <a href="https://arxiv.org/abs/2412.18966"><i class="fas fa-file-pdf"></i> arXiv</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- ==================== 2023 ==================== -->
+              <tr>
+                <td colspan="2" style="padding:20px 20px 10px 20px;">
+                  <h3 style="color:#2563eb;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin:0;">2023</h3>
+                </td>
+              </tr>
+
+              <!-- SelfTalk (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/selftalk/selftalk.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./selftalk">
+                    <papertitle>SelfTalk: A Self-Supervised Commutative Training Diagram to Comprehend 3D Talking Faces</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag top">ACM MM 2023</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Yihao Luo, Yue Shi, Hao Xu, Xiangyu Zhu, Hongyan Liu, Jun He, Zhaoxin Fan
+                  <div class="paper-links">
+                    <a href="./selftalk"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2306.10799"><i class="fas fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/psyai-net/SelfTalk_release"><i class="fab fa-github"></i> Code</a>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- EmoTalk (一作) -->
+              <tr>
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="one">
+                    <img src='images/emotalk/emotalk.png' style="width:200px;border-radius:8px;">
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="./emotalk">
+                    <papertitle>EmoTalk: Speech-Driven Emotional Disentanglement for 3D Face Animation</papertitle>
+                  </a>
+                  <br>
+                  <span class="venue-tag top">ICCV 2023</span>
+                  <br style="margin-bottom:8px;">
+                  <strong>Ziqiao Peng</strong>, Haoyu Wu, Zhenbo Song, Hao Xu, Xiangyu Zhu, Hongyan Liu, Jun He, Zhaoxin Fan
+                  <div class="paper-links">
+                    <a href="./emotalk"><i class="fas fa-globe"></i> Project</a>
+                    <a href="https://arxiv.org/abs/2303.11089"><i class="fas fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/psyai-net/EmoTalk_release"><i class="fab fa-github"></i> Code</a>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <!-- More Publications Link -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;text-align:center;">
+                  <a href="https://scholar.google.com/citations?user=gYTyZGYAAAAJ" target="_blank" style="font-size:15px;font-weight:500;">
+                    <i class="fas fa-arrow-right"></i> View all publications on Google Scholar
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Service Section -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;">
+                  <div class="service-box">
+                    <heading><i class="fas fa-users" style="margin-right:8px;color:#2563eb;"></i>Academic Service</heading>
+                    <div class="service-list">
+                      <div style="margin-top:12px;">
+                        <strong>Conference Reviewer:</strong> CVPR, NeurIPS, ICCV, ECCV, ACM MM, ICME, Eurographics
+                      </div>
+                      <div style="margin-top:8px;">
+                        <strong>Journal Reviewer:</strong> IJCV, TIP, TMM, TOMM, IET Image Processing, IET Computer Vision
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Footer -->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;">
+                  <div class="footer">
+                    <p>Last updated: February 2025</p>
+                    <p style="margin-top:4px;">
+                      Template credit to <a href="https://jonbarron.info">Jon Barron</a>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </td>
+      </tr>
+    </tbody>
   </table>
 </body>
-
 </html>
