@@ -90,7 +90,7 @@ strong {
 /* Links Row */
 .links-row {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   margin-top: 16px;
 }
@@ -98,12 +98,12 @@ strong {
 .links-row a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: 5px;
+  padding: 7px 10px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--text);
   transition: all 0.2s ease;
@@ -201,14 +201,17 @@ strong {
 
 /* Video/Image Container */
 .one {
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  min-height: 110px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .two {
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: auto;
   position: absolute;
   transition: opacity 0.3s ease;
 }
@@ -277,8 +280,48 @@ strong {
 }
 
 .venue-tag.arxiv {
-  background: linear-gradient(135deg, #b91c1c 0%, #f97316 100%);
+  background: linear-gradient(135deg, #475569 0%, #64748b 100%);
   color: white;
+}
+
+.venue-tag.award {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  color: white;
+}
+
+/* Awards & Impact Sections */
+.awards-list {
+  background: linear-gradient(135deg, var(--bg-alt) 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 20px;
+  border: 1px solid var(--border);
+}
+
+.award-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.award-item:first-child {
+  padding-top: 0;
+}
+
+.award-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.award-date {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-light);
+  white-space: nowrap;
 }
 
 /* Service Box */
@@ -337,5 +380,10 @@ span.highlight {
   .news-item {
     flex-direction: column;
     gap: 4px;
+  }
+
+  .award-item {
+    flex-direction: column;
+    gap: 2px;
   }
 }
